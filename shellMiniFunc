@@ -1,0 +1,26 @@
+#############################
+# shell 
+# 数据库批量插入数据
+#############################
+#!/bin/bash
+
+i=1;
+
+MAX_INSERT_ROW_COUNT=$1;
+
+while [ $i -le $MAX_INSERT_ROW_COUNT ]
+
+do
+    mysql -hlocalhost -uroot -pdamon -e "use test_1;insert into ts_tb_insertTest values ($i,'dd',$i);"
+
+    d=$(date +%M-%d\ %H\:%m\:%S)
+
+    echo "INSERT HELLO $i @@ $d"
+
+    i=$(($i+1))
+
+    sleep 0.5
+
+done
+
+#exit 0
