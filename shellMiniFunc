@@ -1,7 +1,19 @@
 
 
 
+#############################
+# shell 
+# nginx addusers
+#############################
+#!/bin/bash
+var=100
 
+while [ $var -lt 200 ]
+do
+        echo "huang" | sudo -S useradd  "xmg$var" -s /bin/bash -m
+        echo "huang" | sudo -S gpasswd -a "xmg$var" sudo
+        var=$(($var + 1))
+done
 
 #############################
 # shell 
