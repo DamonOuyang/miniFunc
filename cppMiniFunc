@@ -1,3 +1,81 @@
+
+*****************************
+* CPP
+* auto_ptr 实现实例
+*****************************
+template<class T>
+class auto_ptr {
+public:
+  explicit auto_ptr(T *p = 0); // Item M5 有“explicitfor”
+                               // 的描述
+template<class U>              // 拷贝构造函数成员模板
+auto_ptr(auto_ptr<U>& rhs);    // （见 Item M28）：
+                               // 用另一个类型兼容的
+                               // auto_ptr 对象
+                               // 初始化一个新的 auto_ptr 对象
+~auto_ptr();
+
+template<class U> // 赋值操作成员模板
+auto_ptr<T>&       // （见 Item M28）：
+operator=(auto_ptr<U>& rhs); // 用另一个类型兼容的
+                             // auto_ptr 对象给它赋值
+T& operator*() const; // 见 Item M28
+T* operator->() const; // 见 Item M28
+T* get() const; // 返回包容指针的
+                // 当前值
+T* release(); // 放弃包容指针的
+// 所有权，
+// 并返回其当前值
+void reset(T *p = 0); // 删除包容指针，
+// 获得指针 p 的所有权
+private:
+T *pointee;
+template<class U> // 让所有的 auto_ptr 类
+friend class auto_ptr<U>; // 成为友元
+};
+template<class T>
+inline auto_ptr<T>::auto_ptr(T *p)
+: pointee(p)
+{}
+template<class T>
+inline auto_ptr<T>::auto_ptr(auto_ptr<U>& rhs)
+: pointee(rhs.release())
+{}
+template<class T>
+inline auto_ptr<T>::~auto_ptr()
+{ delete pointee; }
+template<class T>
+template<class U>
+inline auto_ptr<T>& auto_ptr<T>::operator=(auto_ptr<U>& rhs)
+{
+if (this != &rhs) reset(rhs.release());
+return *this;
+}
+template<class T>
+inline T& auto_ptr<T>::operator*() const
+{ return *pointee; }
+template<class T>
+inline T* auto_ptr<T>::operator->() const
+{ return pointee; }
+template<class T>
+inline T* auto_ptr<T>::get() const
+{ return pointee; }
+template<class T>
+inline T* auto_ptr<T>::release()
+{
+T *oldPointee = pointee;
+pointee = 0;
+return oldPointee;
+}
+template<class T>
+inline void auto_ptr<T>::reset(T *p)
+{
+if (pointee != p) {
+delete pointee;
+pointee = p;
+}
+}
+
 *****************************
 * CPP
 * reference class realize
