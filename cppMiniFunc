@@ -1,5 +1,62 @@
 *****************************
 * CPP
+* 设计模式之创建者模式 实例
+*****************************
+#include<stdio.h>
+#include <stdlib.h>
+#include <Windows.h>
+//中文环境，英文环境
+//屏幕，大小
+void runtext(HWND win, char ch);
+void setsizepose(HWND win, int x, int y);
+
+void startnotepad(char ch, int x, int y)//ch='e' 'c' x,y
+{
+	system("start notepad");
+	Sleep(3000);
+	HWND win = FindWindowA("Notepad", "无标题 - 记事本");
+	if (win==NULL)
+	{
+		printf("找不到哦啊");
+	}
+	runtext(win,ch);
+	setsizepose(win, x, y);
+}
+
+void setsizepose(HWND win ,int x, int y)
+{
+	if (x>800 & y>600)
+	{
+		SetWindowPos(win, NULL, 0, 0, 800, 600, 0);
+	} 
+	else
+	{
+		SetWindowPos(win, NULL, 0, 0, 480, 320, 0);
+	}
+}
+
+void runtext(HWND win,char ch)
+{
+	if (ch == 'e')
+	{
+		SetWindowTextA(win, "i love you ,money , girl");
+	}
+	else if (ch == 'j')
+	{
+		SetWindowTextA(win, "所噶，花姑娘的有");
+	}
+	else
+	{
+		SetWindowTextA(win, "我喜欢事业与爱情");
+	}
+}
+void main()
+{
+	startnotepad('j', 1700, 1500);
+	system("pause");
+}
+*****************************
+* CPP
 * 滑动窗口 实现实例
 *****************************
 #include <iostream>
