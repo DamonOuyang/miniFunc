@@ -1,5 +1,50 @@
 *****************************
 * CPP
+* 设计模式之单例模式 实例
+*****************************
+#include <iostream>
+using namespace std;
+// 单例
+class Singletion
+{
+public:
+    static Singletion * getInstance() // 静态成员函数，用来管理静态函数
+    {
+        if(_instance == NULL)
+        {
+            _instance = new Singletion;
+        }
+        return _instance;
+    }
+
+    static void releaseInstance()
+    {
+        if(_instance != NULL)
+        {
+            delete _instance;
+            _instance = NULL;
+        }
+    }
+protected:
+    Singletion(){}  // 构造器
+    Singletion(const Singletion& other){}// 拷贝构造器
+    ~Singletion(){}  // 析造器
+    Singletion& operator=(const Singletion &other){}
+    // 赋值运算符重载,在这里不用理会，因为只能有两个对象才能发生
+    static Singletion * _instance;
+};
+
+Singletion * Singletion::_instance = NULL;
+
+int main(int argc, char *argv[])
+{
+    Singletion * s  = Singletion::getInstance();
+//    Singletion s2 = Singletion(*s); // 测试 拷贝构造器
+    return 0;
+}
+
+*****************************
+* CPP
 * 设计模式之创建者模式 实例
 *****************************
 #include<stdio.h>
