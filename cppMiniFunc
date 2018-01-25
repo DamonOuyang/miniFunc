@@ -25,13 +25,30 @@ public:
             _instance = NULL;
         }
     }
+
+    Singletion* copy_single()
+    {
+        Singletion s ;
+        Singletion ss(s);
+        s = ss;
+	
+	//Singletion *s1 = new Singletion;
+	//return s1;
+	
+        return &s;
+    }
+
 protected:
     Singletion(){}  // 构造器
-    Singletion(const Singletion& other){}// 拷贝构造器
+    Singletion(const Singletion& other)=delete;// 拷贝构造器
+   // Singletion(const Singletion& other){}// 拷贝构造器
     ~Singletion(){}  // 析造器
-    Singletion& operator=(const Singletion &other){}
+    //Singletion& operator=(const Singletion &other){}
+    Singletion& operator=(const Singletion &other)=delete;
     // 赋值运算符重载,在这里不用理会，因为只能有两个对象才能发生
+
     static Singletion * _instance;
+
 };
 
 Singletion * Singletion::_instance = NULL;
@@ -40,6 +57,7 @@ int main(int argc, char *argv[])
 {
     Singletion * s  = Singletion::getInstance();
 //    Singletion s2 = Singletion(*s); // 测试 拷贝构造器
+    Singletion *ss = s->copy_single();
     return 0;
 }
 
