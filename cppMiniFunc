@@ -132,6 +132,17 @@ void send_status_ZKTeco(int price,unsigned short framId)
         cmdCreate_ZKTeco(cmd,framId,data,dataLen);
 }
 
+// 异或校验
+    unsigned char creatLRC_ZKTeco(unsigned char buff[],int len)
+    {
+        char tem=buff[1];
+        for(int i=2;i<len;i++)
+        {
+            tem ^= buff[i];
+        }
+        return tem;
+    }
+
 *****************************
 * CPP
 * 设计模式之单例模式 与 破解功能 实例
