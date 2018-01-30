@@ -109,10 +109,27 @@ void IrKeyFacade::handleIrKey(unsigned char* buf, int len)
 	if(buf[1] == 0x09)
 	{
 		int balance = 0;
-		//balance = buf[6]|(buf[7]<<8)|(buf[8]<<16)|(buf[9]<<24); // 移位操作
+		//balance = buf[6]|(buf[7]<<8)|(buf[8]<<16)|(buf[9]<<24); // 移位操作 数组变为值
 		memcpy(&balance, buf+6, 4);
 		emit sign_status_pay(true, balance);
 	{
+}
+
+void send_status_ZKTeco(int price,unsigned short framId)
+{
+
+        //printf("send_status_ZKTeco : %d\n" ,price);
+
+        char cmd = 0xA2;
+
+        const int dataLen = 4;
+        unsigned char data[dataLen];
+        data[0]=price>>24;  // 高位在前，值变为数组
+        data[1]=price>>16;
+        data[2]=price>>8;
+        data[3]=price;
+
+        cmdCreate_ZKTeco(cmd,framId,data,dataLen);
 }
 
 *****************************
