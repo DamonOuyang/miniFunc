@@ -1,5 +1,67 @@
 *****************************
 * CPP
+* std::function 语义
+*****************************
+*****************************
+* CPP
+* std::bind 语义
+*****************************
+#include <iostream>
+#include <functional>
+
+using namespace std;
+using namespace std::placeholders;
+
+double my_divide(double x,double y)
+{
+    return x/y;
+}
+
+struct MyPair{
+    double a,b;
+    double multiply()
+    {
+        return a*b;
+    }
+
+    double multiply2(int x,int y)
+    {
+        return x*b;
+    }
+};
+
+int main(int argc, char *argv[])
+{
+    auto func = bind(my_divide,10,3);
+    cout << my_divide(10,3) << endl;
+    cout << func() << endl;
+
+    auto func2 = bind(my_divide,placeholders::_1,placeholders::_2);
+    cout << func2(20,3) << endl;
+
+    auto func3 = bind(my_divide,placeholders::_2,placeholders::_1);
+    cout << func3(20,3) << endl;
+
+    auto func4 = bind(my_divide,placeholders::_1,10);
+    cout << func4(100) << endl;
+
+    auto func5 = bind(my_divide,10,placeholders::_1);
+    cout << func5(100) << endl;
+
+    MyPair mp = {100,10};
+    cout << mp.a << endl;
+    cout << mp.multiply2(1,2) << endl;
+
+    auto func6 = bind(MyPair::multiply2,mp,_1,_2);
+    // 第一个参数是类成员，第二个参数一定是类对象
+    //cout << func6() << endl;
+    cout << func6(1,2) << endl;
+
+    return 0;
+}
+
+*****************************
+* CPP
 * std::move 语义
 *****************************
 #include <iostream>
