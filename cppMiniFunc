@@ -205,6 +205,31 @@ void send_status_ZKTeco(int price,unsigned short framId)
         return tem;
     }
 
+// 移位进数组
+typedef struct
+{
+    uint16_t evaporator_tempr;
+    uint16_t condenser_tempr;
+    uint16_t gas_pres;
+    uint16_t flow;
+    uint8_t humidity;
+    uint8_t sw_sensor;
+    uint8_t motor_conn;
+    uint8_t valve_hot_conn;
+    uint8_t valve_cold_conn;
+    uint8_t valve_2p2w_conn;
+    uint16_t fb_vol[5];
+    uint8_t other;
+    uint16_t out_volume;
+}sensor_statues;
+
+default:
+{
+     if((i>=8)&&(i<0x17))
+     inquire_response[q_len++] = *(uint8_t *)((uint32_t)&sensor_info.evaporator_tempr+(i-8));
+}
+break;
+
 *****************************
 * CPP
 * 设计模式之单例模式 与 破解功能 实例
