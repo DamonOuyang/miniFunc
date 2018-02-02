@@ -1,7 +1,91 @@
 *****************************
 * CPP
-* std::function 语义
+* auto_ptr unique_ptr shared_ptr 语义
 *****************************
+#include <iostream>
+#include <memory>
+using namespace std;
+class Copyable
+{
+public:
+    Copyable(int i):_i(new int(i)){
+        cout<<"Copyable(int i)"<<endl;
+    }
+    Copyable(const Copyable & another):_i(new int(*another._i)){
+        cout<<" Copyable(const Copyable & another)"<<endl;
+    }
+    ~Copyable(){
+        cout<<"~Copyable()"<<endl;
+    }
+    int *_i;
+};
+
+void func( shared_ptr<int> spi)
+{
+    cout << spi.use_count()<< endl;
+}
+
+int main(int argc, char *argv[])
+{
+//    auto_ptr<Copyable> apc(new Copyable(10));
+//    cout << *(apc->_i) << endl;
+
+//    auto_ptr<Copyable> apc2(apc);
+//    cout <<*(apc2->_i) << endl;// 可用
+//    cout <<*(apc->_i) << endl; // 程序挂掉了
+
+//    unique_ptr<Copyable> upc(new Copyable(10));
+//    cout << *(upc->_i) << endl;
+
+    //unique_ptr<Copyable> apc2(apc); // 锁 死了
+    //unique_ptr<Copyable> upc2;
+    //upc2 = (move(upc));
+    //cout <<*(upc2->_i) << endl;// 可用
+    //cout <<*(upc->_i) <<  endl; // 程序挂掉了
+//cout << *(upc).get()->_i << endl;
+
+    // 新接口
+    /*
+    public interface explain
+    get Get pointer (public member function )
+    operator bool Check if not empty (public member function )
+    release Release pointer (public member function )
+    reset Reset pointer (public member function )
+    operator* Dereference object (public member function )
+    operator-> Dereference object member (public member function )
+    */
+
+    // 哪里用到 auto_ptr 的时候，就用 unique_ptr 就好了，但 unique_ptr 不能
+    // 当做复制参数一样传递，可以通过引用参数来传递，以至于生成了 shared_ptr. shared_ptr 用到一个引用计数器来计数
+
+/*public interface explain
+operator= shared_ptr assignment (public member function )
+reset
+get
+Reset pointer (public member function )
+Get pointer (public member function )
+use_count Use count (public member function )
+unique Check if unique (public member function )
+operator bool Check if not null (public member function )
+operator* Dereference object (public member function )
+operator-> Dereference object member (public member function )
+*/
+// 同类间数据共享，static. shared_ptr 的指针就是static的指针
+
+    shared_ptr<int> spi(new int(100));// RAII 资源获取即初始化
+    cout << spi.use_count() << endl;
+
+    shared_ptr<int> spi2(spi);
+    cout << spi2.use_count() << endl;
+
+    shared_ptr<int> spi3;
+    spi3 = spi2;
+
+    cout << spi3.use_count() << endl;
+    func(spi);
+    return 0;
+}
+
 *****************************
 * CPP
 * std::bind 语义
