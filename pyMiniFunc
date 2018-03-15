@@ -1,6 +1,21 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 ##################^^^#########^^^##
+##      dict [key,value]         ##
+#######################~..~########
+# 
+# coding:utf-8  
+
+infor = {"name":"laowang",100:"haha",3.14:"heihei",(11,22):"sfalsfs",[11,22]:"enen"}
+
+Traceback (most recent call last):
+  File "F:/Python Learning/AiTest/01with.py", line 315, in <module>
+    infor = {"name":"laowang",100:"haha",3.14:"heihei",(11,22):"sfalsfs",[11,22]:"enen"}
+TypeError: unhashable type: 'list'
+
+#                      /\  /\      
+#                    ( @ . @ )     
+##################^^^#########^^^##
 ##       machine-learning          ##
 #######################~..~########
 # 
