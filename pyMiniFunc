@@ -1,6 +1,29 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##          文件处理 大文件处理流程             ##
+######################################~..~########
+# 
+# coding:utf-8  
+
+old_file_name = input("请输入要复制的文件名：")
+old_file = open(old_file_name,"r")
+
+new_file_name = old_file_name[:old_file_name.rfind(".")] + "[copy]" + old_file_name[old_file_name.rfind("."):]
+new_file = open(new_file_name,"w")
+
+while True:
+    content = old_file.read(1024)
+    if len(content) == 0:
+        break
+    count = new_file.write(content)
+
+old_file.close()
+new_file.close()
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##    函数参数python都传引用注意可变和不可变    ##
 ######################################~..~########
 # 
