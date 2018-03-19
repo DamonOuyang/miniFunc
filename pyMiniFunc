@@ -1,6 +1,31 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##      2. 生成器不保留迭代过后的结果           ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# coding=utf-8  
+# -*- coding:utf-8 -*-
+
+gen = (i for i in range(5))
+print(2 in gen) # True
+#print(2 in gen) # False
+
+print(3 in gen)
+print(3 in gen)
+print(1 in gen)# 1 为什么不在gen里面了? 因为调用1->2,这个时候1已经不在迭代器里面了,被按需生成过了
+print("----------------------------------")
+gen = (i for i in range(5))
+a_list = list(gen) # 可以转化成列表，当然a_tuple = tuple(gen) 也可以
+
+print(2 in a_list)# Ture
+print(3 in a_list)# Ture
+print(1 in a_list)# Ture 就算循环过，值还在
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##   1. 不要使用可变对象作为函数默认值          ##
 ######################################~..~########
 # !/usr/bin/python  
@@ -27,6 +52,17 @@ def report_arg(my_default=time.time()):
 report_arg() # 第一次执行
 time.sleep(2)# 隔了2秒
 report_arg()# 时间没有变
+
+代码可以改为如下：
+def append_to_list(element,to=None):
+    if to is None:
+        to = []
+    to.append(element)
+    print(to)
+    return to
+
+append_to_list(1)# [1] 
+append_to_list(2)# [2]
 
 #                      /\  /\      
 #                    ( @ . @ )     
