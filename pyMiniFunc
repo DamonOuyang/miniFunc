@@ -1,12 +1,48 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
-##              批量修改文件名称                ##
+##   1. 不要使用可变对象作为函数默认值          ##
 ######################################~..~########
-# 
+# !/usr/bin/python  
 # coding:utf-8  
-# -*- coding=utf-8 -*-
+# coding=utf-8  
+# -*- coding:utf-8 -*-
 
+# 第一个例子
+def append_to_list(value, def_list=[]):
+    def_list.append(value)
+    return def_list
+
+my_list = append_to_list(1)
+print(my_list)
+
+my_other_list = append_to_list(2)
+print(my_other_list) # [1,2] 看到了吧，其实我们本来只想生成[2] 但是却把第一次运行的效果页带了进来
+
+# 第二个例子
+import time
+def report_arg(my_default=time.time()):
+    print(my_default)
+
+report_arg() # 第一次执行
+time.sleep(2)# 隔了2秒
+report_arg()# 时间没有变
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
+##            指定编码的集中方式                ##
+######################################~..~########
+# !/usr/bin/python  
+
+# coding=<encoding name>  
+# -*- coding: <encoding name> -*- 
+# vim: set fileencoding=<encoding name> :  
+
+如下：
+# coding:utf-8  
+# coding=utf-8  
+# -*- coding:utf-8 -*-
 
 #                      /\  /\      
 #                    ( @ . @ )     
