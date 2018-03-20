@@ -67,6 +67,39 @@ append_to_list(2)# [2]
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##                  py面向对象                  ##
+######################################~..~########
+# !/usr/bin/python  
+class Digua(object):
+
+    def __init__(self):
+        self.cookString = "生的"
+        self.level = 0
+        self.condiments = []
+
+    def __str__(self):
+        return "烤地瓜的时间：%d%s, 已经有的作料是%s"%(self.level,self.cookString,str(self.condiments))
+
+    def kaodigua(self,time):
+        self.level += time
+        if self.level < 3:
+            self.cookString = "生的"
+        elif self.level >=3 and self.level < 5:
+            self.cookString = "半生不熟"
+        elif self.level > 5:
+            self.cookString = "熟了"
+
+    def addCondiments(self, c):
+        self.condiments += c
+
+d = Digua()
+d.kaodigua(1)
+d.addCondiments("大蒜")
+print(d)
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##            指定编码的集中方式                ##
 ######################################~..~########
 # !/usr/bin/python  
