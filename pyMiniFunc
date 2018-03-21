@@ -1,6 +1,46 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##     3. lambda在闭包中会保存局部变量          ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+# 
+# my_list = [ lambda: i for i in range(5)]
+# for l in my_list:
+#     print(l())
+# 4
+# 4
+# 4
+# 4
+# 4
+# print("-------------------")
+# my_list = [ lambda x=i:x for i in range(5)] # 看我给每个lambda表达式附了默认值
+# for l in my_list:
+#     print(l())
+# 0
+# 1
+# 2
+# 3
+# 4
+
+def groupby(items, size):
+    print([iter(items)]*3)
+    print([lambda x=i: x for i in range(5)])
+    return zip(*[iter(items)]*size)
+#
+print( *(groupby(range(9), 3)) ) # 拆包
+
+# (0, 1, 2) (3, 4, 5) (6, 7, 8)
+
+# [<range_iterator object at 0x004F4D10>, <range_iterator object at 0x004F4D10>, <range_iterator object at 0x004F4D10>]
+# [<function groupby.<locals>.<listcomp>.<lambda> at 0x0259E930>, <function groupby.<locals>.<listcomp>.<lambda> at 0x0259E8E8>, <function groupby.<locals>.<listcomp>.<lambda> at 0x0259E9C0>, <function groupby.<locals>.<listcomp>.<lambda> at 0x0259EA08>, <function groupby.<locals>.<listcomp>.<lambda> at 0x0259EA50>]
+# (0, 1, 2) (3, 4, 5) (6, 7, 8)
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##      2. 生成器不保留迭代过后的结果           ##
 ######################################~..~########
 # !/usr/bin/python  
