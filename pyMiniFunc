@@ -1,6 +1,36 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##                6. 重用全局变量               ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+
+def my_func():
+    print(var) # 我可以先调用一个未定义的变量
+var = "global" # 后赋值
+my_func() # 反正只要调用函数时候变量被定义了就可以了
+
+def my_func1():
+    var = "locally changed"
+var = "global"
+my_func()
+print(var)
+
+def my_func2():
+    global var # 这个时候得加全局了
+    print(var) # 这样就能正常使用
+    var = "locally changed" # 全局变量会被改变
+
+var = "global"
+
+my_func2()
+print(var) # 但是使用了 global 就改变了全局变量
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##    5. IndexError–列表取值超出了他的索引数    ##
 ######################################~..~########
 # !/usr/bin/python  
