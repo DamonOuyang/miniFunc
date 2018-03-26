@@ -1,3 +1,46 @@
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
+##           11. ‘==’ 和 is 的区别              ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+# 我的理解是"is"是判断2个对象的身份，==是判断2个对象的值，代码如下：
+a = 1
+b = 1
+print("a is b", bool(a is b))
+# a is b True
+c = 999
+d = 999
+print("c is d", bool(c is d))
+print("c == d", bool(c == d) )
+# c is d True
+# c == d True
+
+print("256 is 257 - 1 ->", 256 is 257-1)
+print("257 is 258 - 1 ->", 257 is 258-1)
+# 256 is 257 - 1 -> True
+# 257 is 258 - 1 -> False
+
+print("-7 is -6-1 ->",-7 is -6 -1)
+# -7 is -6-1 -> False
+
+aa = "Hello world!"
+bb = "Hello world!"
+print("aa is bb ->", aa is bb)
+# a is b -> True # 很明显，他们没有被缓存，这是2个字段串的对象
+print("aa == bb ->", aa == bb)
+# aa == bb -> True # 但他们的值相同
+# but, 有个特例
+aaa = float("nan")
+print("aaa is aaa ->", aaa is aaa)
+print("aaa == aaa ->", aaa == aaa)
+# aaa is aaa -> True
+# aaa == aaa -> False # 亮瞎我眼睛了~
+
+
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
