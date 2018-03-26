@@ -1,6 +1,38 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##     9. 列表的 +和+=, append 和 extend        ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+ a_list = []
+ print("ID   :", id(a_list))
+
+ a_list += [1]
+ print("ID +=:", id(a_list)) # 使用 += 还是在原来的列表上操作
+
+ a_list = a_list + [2]
+ print("ID + :", id(a_list)) # 简单的 + 其实已经改变了原有列表
+ ID   : 6775952
+ ID +=: 6775952
+ ID + : 6776952
+
+ a_list = []
+ print("ID              :",id(a_list))
+
+ a_list.append(1)
+ print("ID a_list.append:",id(a_list)) # append 是在原有列表添加
+
+ a_list.extend([2])
+ print("ID a_list.extend:",id(a_list)) # extend 也是在原来有列表上添加
+# ID              : 36463760
+# ID a_list.append: 36463760
+# ID a_list.extend: 36463760
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##                8. python多继承               ##
 ######################################~..~########
 # !/usr/bin/python  
