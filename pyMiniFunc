@@ -1,6 +1,22 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##         10. datetime 也有 bool 值            ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+
+import datetime
+print('"datetime.time(0,0,0)" (Midnight) ->', bool(datetime.time(0,0,0)))
+print('"datetime.time(1,0,0)" (1 am) ->', bool(datetime.time(1,0,0)))
+
+"datetime.time(0,0,0)" (Midnight) -> True
+"datetime.time(1,0,0)" (1 am) -> True
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##     9. 列表的 +和+=, append 和 extend        ##
 ######################################~..~########
 # !/usr/bin/python  
