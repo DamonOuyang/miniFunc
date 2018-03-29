@@ -1,6 +1,26 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##          14. 元组是不是真的不可变？          ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+# tup = ([],)
+# tup[0] += [1]
+# Traceback (most recent call last):
+#   File "F:/Python Learning/AiTest/01with.py", line 709, in <module>
+#     tup[0] += [1]
+# TypeError: 'tuple' object does not support item assignment
+#print(tup) # 抛出异常，我X 又是亮瞎我的眼睛，明明抛了异常，还能修改？
+
+tup = ([],)
+tup[0].extend([1])
+print(tup[0]) # 不能直接操作元组，但是不能阻止我操作元组中可变的子对象（list）
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##          13. bool 其实是 int 的子类          ##
 ######################################~..~########
 # !/usr/bin/python  
