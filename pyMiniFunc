@@ -1,11 +1,94 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##            15.异常处理价 else                ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+
+a_list = [0,1]
+
+try:
+    print("third element:",a_list[2])
+except IndexError:
+    print("raised IndexError")
+else:
+    print("no error in try-block") # 只有在try里面没有异常的时候执行else里面的表达式
+
+# raised IndexError 抛出异常了，没完全完成
+
+i = 0
+while i<2:
+    print(i)
+    i += 1
+else:
+    print("in else")
+# 0
+# 1
+# in else while 也支持哦！
+
+i = 0
+while i < 2:
+    print(i)
+    i += 1
+    break
+else:
+    print("completed while-loop")
+# 0 # 被break了，没有完全执行完 就不执行else里面的了
+for i in range(2):
+    print(i)
+else:
+    print("completed for-loop")
+# 0
+# 1
+# completed for-loop
+print("-----------")
+for i in range(2):
+    print(i)
+    break
+else:
+    print("completed for-loop")
+# 0 # 也是因为 break 了
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
+##   15.python没有私有方法/变量？但是可以有伪的 ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+
+class my_class(object):
+    __private_variable =  1
+    def public_mechod(self):
+        print("Hello public world!")
+    def __private_mechod(self): # 私有以双下划线开头
+        print("Hello private world!")
+    def call_private_method_in_class(self):
+        self.__private_mechod()
+
+my_instance = my_class()
+my_instance.public_mechod() # 普通方法
+# hello public world!
+my_instance._my_class__private_mechod() # 私有方法
+# Hello private world! # 私有的可以加“_ + 类名字 + 私有方法名字”
+my_instance.call_private_method_in_class()
+# Hello private world! # 还可以通过类提供的公有接口内部访问
+
+print( my_instance._my_class__private_variable ) # 私有属性
+# 访问私有属性
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##          14. 元组是不是真的不可变？          ##
 ######################################~..~########
 # !/usr/bin/python  
 # coding:utf-8  
 # -*- coding:utf-8 -*-
+
 # tup = ([],)
 # tup[0] += [1]
 # Traceback (most recent call last):
@@ -17,6 +100,20 @@
 tup = ([],)
 tup[0].extend([1])
 print(tup[0]) # 不能直接操作元组，但是不能阻止我操作元组中可变的子对象（list）
+
+# 这里有个不错的解释Python's += Is Weird,Part II
+my_tup = (1,)
+print("my_tup = (1,)         :",id(my_tup))
+my_tup += (4,)
+print("my_tup += (4,)        :",id(my_tup))
+my_tup = my_tup + (5,)
+print("my_tup = my_tup + (5,):",id(my_tup))
+print(my_tup) # ? 嗯，不是不能操作元组嘛？
+
+# my_tup = (1,)         : 2470064
+# my_tup += (4,)        : 40200032
+# my_tup = my_tup + (5,): 2697656  # 操作的不是原来的元组，所以可以
+# (1, 4, 5)
 
 #                      /\  /\      
 #                    ( @ . @ )     
