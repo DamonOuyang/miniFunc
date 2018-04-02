@@ -1,6 +1,30 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##                    多态                      ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+
+class Dog(object):
+    def print_self(self):
+        print("--- Dog ---")
+class Xiantq(Dog):
+    def print_self(self):
+        print("---Xiaotq--")
+
+def introduce(tmp):
+    tmp.print_self()
+
+d = Dog()
+x = Xiantq()
+introduce(d)
+introduce(x)
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##                    inherit                   ##
 ######################################~..~########
 # !/usr/bin/python  
