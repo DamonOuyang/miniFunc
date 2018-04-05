@@ -1,6 +1,28 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
+##                  __new__                     ##
+######################################~..~########
+# !/usr/bin/python  
+# coding:utf-8  
+# -*- coding:utf-8 -*-
+class Dog(object):
+    def __init__(self):
+        print("---init方法---")
+    def __del__(self):
+        print("---del方法----")
+    def __str__(self):
+        print("---str方法----")
+    def __new__(cls, *args, **kwargs):
+        print(id(cls))
+        print("---new方法----")
+        return object.__new__(cls) #调用父类的方法
+print(id(Dog))
+dag = Dog()
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
 ##                    多态                      ##
 ######################################~..~########
 # !/usr/bin/python  
