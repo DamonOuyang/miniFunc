@@ -1,3 +1,29 @@
+
+#############################
+# shell 
+# 关闭 jetinno test server 
+#############################
+# !/bin/sh
+pid=`ps -ef | grep "python -u TCPServr.py" | grep -V "grep" | awk '{print $2}'`
+
+if [ "$pid" != ""]
+then
+	kill -9 ${pid}
+	echo "stop TCPServr complete"
+else
+	echo "TCPServr is not run, there's no need to stop it."
+fi
+
+pid=`ps -ef | grep "python -u Server.py" | grep -v "grep" | awk '{print $2}'`
+if [ "$pid" != ""]
+then
+	kill -9 ${pid}
+	echo "stop DataServer complete"
+else
+	echo "DataServer is not run,there's no need to stop it."
+fi
+
+
 #############################
 # shell 
 # 开启 jetinno test server 
