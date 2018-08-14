@@ -1,5 +1,42 @@
 #############################
 # shell 
+# 开启 jetinno test server 
+#############################
+# !/bin/sh
+
+pid=`ps -ef | grep "python -u TCPServer.py" | grep -V "grep" | awk '{print $2}'`
+if [ "$pid" != "" ]
+then
+  echo "TCPServer.py already run, stop it fist"
+  kill -9 ${pid}
+fi
+
+echo "starting TCPServer"
+nohup python -u TCPServer.py > TCPServer_log.out 2>&1 &
+pid=`ps -ef | grep "python -u TCPServer.py" | grep -v "grep" | awk '{print $2}'`
+# echo ${pid} > pid.out
+echo "TCPServer started at pid: "${pid}
+
+sleep 1
+cd DataServer
+
+###
+pid=`ps -ef | grep "python -u Server.py" | grep -V "grep" | awk '{print $2}'`
+if [ "$pid" != "" ]
+then
+  echo "DataServer.py already run, stop it first"
+  kill -9 ${pid}
+fi
+
+echo "starting DataServer"
+nohup python -u Server.py > DataServer_log.out 2>&1 &
+pid=`ps -ef | grep "python -u Server.py" | grep -V "grep" | awk '{print $2}'`
+#echo ${pid} > pid.out
+echo "DataServer started at pid: "${pid}
+
+
+#############################
+# shell 
 # 查看僵尸进程
 #############################
 #!/bin/bash
