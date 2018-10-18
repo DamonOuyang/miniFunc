@@ -7,14 +7,204 @@
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
-##                    快速排序                   ##
+##                    归并排序                   ##
 ######################################~..~########
+
+package mergesort;
+
+
+public class MergeSort 
+{
+    public static void show(int[] data)
+    {
+        for(int mydata:data)
+        {
+            System.out.print(mydata+" ");
+        }
+        System.out.println("");
+    }
+    
+    public static void merge(int[] data,int left,int center,int right)
+    {
+        // left-center  center+1 right
+        int [] tempdata = new int [data.length]; // 保存临时数组，归并
+        int mid = center + 1;// 两个数组分割线
+        int temppos = left;  // 临时数组的索引，0->
+        int templeft = left; // 左边数组的索引
+        
+        while(left <= center && mid <= right)
+        {
+            if(data[left] <= data[mid])
+            {
+                tempdata[temppos] = data[left];
+                temppos++;
+                left++;
+            }
+            else
+            {
+                tempdata[temppos] = data[mid]; // 保存小的数据
+                mid++;
+                temppos++;
+            }
+        }
+        // 没有结束的链接起来
+        while(mid <= right)
+        {
+            tempdata[temppos] = data[mid];
+            temppos++;
+            mid++; // 移动
+        }
+        while(left <= center)
+        {
+            tempdata[temppos] = data[left];
+            temppos++;
+            left++;// 移动
+        }
+        
+        while(templeft <= right) // 拷贝回去
+        {
+            data[templeft] = tempdata[templeft];
+            templeft++;
+        }
+    }
+    
+    public static void mergesort(int[] data, int left, int right)
+    {
+        // 左       右
+        //0 1 2 3 4 5 6
+        if(left >= right)
+        {
+            return;// 一个元素，
+        }
+        int center = (left + right)/2;   // 切半
+        mergesort(data,left,center);     // 左边
+        mergesort(data,center + 1,right);// 右边
+        merge(data, left, center, right);// 归并
+      
+    }
+    
+    public static void main(String[] args) 
+    {
+        int [] data = new int[] {89,99,9, 1, 8, 2,3,6,5,4,11};
+        mergesort(data,0,data.length-1);
+        show(data);
+ 
+    }
+}
+
+
 
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
-##                    快速排序                   ##
+##                    插入排序                   ##
 ######################################~..~########
+package insersort;
+public class InserSort 
+{
+    // 插入排序
+    // 主要用于边读文件边排序
+    // 插入排序，从前往后（顺序，逆序），往后往前（顺序，逆序），
+    // do while, while for ,递归
+    public static void main1(String[] args)
+    {
+        // int [] myint = new int [] {1,9,2,8,3,7,4,6,5};
+        int [] myints = new int[]{1,5,9,19,23,28,20};
+        int pos = 0;// 要插入的位置
+        int insertdata = myints[myints.length - 1];// 要插入
+        for(int i=0;i<myints.length - 1;i++)
+        {
+            if(insertdata > myints[i] && insertdata<=myints[i+1])// 找到位置
+            {
+                pos = i;// 找到位置并保存位置
+                for(int j=myints.length - 2;j>=i+1;j--)
+                {
+                    myints[j+1] = myints[j];// 往后移动
+                }
+                myints[i+1] = insertdata; // 插入数据
+            }
+        }
+        
+        for(int mydata:myints)
+        {
+            System.out.print(mydata+" ");
+        }
+    }
+    public static void main2(String[] args) 
+    {
+        int [] myints = new int [] {1,9,2,8,3,7,4,6,5};
+        for(int i=1;i<myints.length;i++)
+        {
+            int nowdata = myints[i];// 插入的数据
+            int k = 0; //pos
+            for(k=i-1;k>=0 && myints[k]>nowdata;k--)// 寻找合适的位置
+            {
+                myints[k+1] = myints[k];// 数据移动
+            }
+            myints[k+1] = nowdata; // 插入数据
+            
+            // 显示
+            for(int mydata:myints)
+            {
+                System.out.print(mydata+" ");
+            }
+            System.out.println("");
+        }
+        
+        for(int mydata:myints)
+        {
+            System.out.print(mydata+" ");
+        }
+     
+    }
+    
+    // 二分查找 插入排序
+    public static void main(String[] args)
+    {
+        int [] myints = new int[]{1,9,2,8,3,7,4,6,5};
+        for(int i=1;i<myints.length;i++)
+        {
+            if(myints[i]<myints[i-1])// 插入前提
+            {
+                int tempinsert = myints[i];
+                int low = 0;
+                int high = i - 1;// 二分查找的上限，下限
+                while(low <= high) //处理重合
+                {
+                    int mid = (low+high)/2;
+                    if(myints[mid]<tempinsert)
+                    {
+                        low = mid + 1;
+                    }
+                    else
+                    {
+                        high = mid - 1;
+                    }
+                }
+                // low
+                for(int j=i;j>low;j--)
+                {
+                    myints[j] = myints[j-1];
+                }
+                myints[low] = tempinsert;// 插入一个数据
+            }
+            
+            for(int mydata:myints)
+            {
+                System.out.print(mydata+" ");
+            }
+            System.out.println("");
+            
+        }
+        for(int mydata:myints)
+        {
+            System.out.print(mydata+" ");
+        }
+    }
+    
+}
+
+
 
 #                      /\  /\      
 #                    ( @ . @ )     
