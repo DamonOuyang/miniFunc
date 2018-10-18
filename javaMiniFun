@@ -152,6 +152,153 @@ public class Csdn_QuickSort
     }
 */
 
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
+##             拉格朗日插值查找                   ##
+######################################~..~########
+package binsearch;
+
+public class BinSearch 
+{
+    //1024   10次
+    //1024
+    //512  512
+    //256  256
+    //128 128
+    //2
+    //1  1
+    //   1  2   3  4 5  6 7 8 9 10 
+    //            5>j  j>3;
+    public static int binsearch(int []arr,int findnum)
+    {
+        int max=arr.length-1;
+        int min=0;
+        //int mid=(max+min)/2;
+        int mid=min+ (max-min)/2;
+      //  int mid=min+ (max-min)*(1/2);
+        
+        int times=0;
+        while(arr[mid]!=findnum)
+        {
+            times++;
+            if(findnum>arr[mid])
+            {
+                min=mid+1;
+            }
+            else if(findnum< arr[mid])
+            {
+                max=mid-1;
+            }
+            mid=(max+min)/2;
+            if(max<min)
+            {
+                return -1;
+            }
+            
+        }
+      System.out.println( times+"次");
+        return mid;
+        
+    }
+      public static int binsearchX(int []arr,int findnum)
+    {
+        int max=arr.length-1;
+        int min=0;
+        //int mid=(max+min)/2;
+       // int mid=min+ (max-min)/2;
+      //  int mid=min+ (max-min)*(1/2);
+      //  int mid=min+ (max-min)*( mid-min/max- min      );//二分查找法的比例
+        int mid =    (int) (min+ (max-min)*( (findnum-arr[min])*1.0/(arr[max]- arr[min]  )    ));
+        int times=1;
+        while(arr[mid]!=findnum)
+        {
+            times++;
+            if(findnum>arr[mid])
+            {
+                min=mid+1;
+            }
+            else if(findnum< arr[mid])
+            {
+                max=mid-1;
+            }
+            mid=(max+min)/2;
+            if(max<min)
+            {
+                return -1;
+            }
+            
+        }
+      System.out.println( times+"次");
+        return mid;
+        
+    }
+    
+    public static void main(String[] args) 
+    {
+         int [] myint=new int [1024];
+         for(int i=1;i<=1024;i++)
+         {
+             myint[i-1]=i;
+         }
+        System.out.println( binsearchX(myint, 369));
+        //1024  2^10
+    }
+    
+}
+
+//int mid = (min + max)/2;
+//int mid = min + (max - min)/2;
+//int mid = min + (max - min)/(1/2);
+//int mid = min + (max - min)/((mid - min )/ (max - min));
+//int mid = min + (max - min) / ( ( (findnum - arr[min])*1.0)/(arr[max] - arr[min])      );
 
 
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
+##                    二分查找                   ##
+######################################~..~########
+package binsearch;
 
+public class BinSearch 
+{
+    public static int binSeach(int [] arr,int findnum)
+    {
+        int min = 0;
+        int max = arr.length - 1;
+        int mid = (min + max) / 2;
+        int times = 1;
+        while(arr[mid] != findnum)
+        {
+            if( findnum  > arr[mid])
+            {
+                min = mid + 1;
+            }
+            else if ( findnum < arr[mid])
+            {
+                max = mid - 1;
+            }
+            mid = (max + mid)/2;
+            
+            if(max < min)
+            {
+                return -1;
+            }
+            times ++;
+        }
+        System.out.println(times + " 次");
+        return mid;
+    }
+
+    public static void main(String[] args) 
+    {
+        int [] myint = new int[1024];
+        for(int i=1;i<=1024;i++)
+        {
+            myint[i-1] = i;
+        }
+        int index = binSeach(myint,14);
+        System.out.println(index);
+    }  
+}
