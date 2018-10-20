@@ -1,13 +1,171 @@
-十大排序
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
-##                    快速排序                   ##
+##                    5 桶排序                  ##
 ######################################~..~########
+
+package buckersort;
+
+public class Buckersort 
+{
+    public static void show(int[] data)
+    {
+        for(int i:data)
+        {
+            System.out.print(i + " ");
+        }
+        System.out.println("");
+    }
+    
+    public static void bucketsort(int[] data, int min, int max)
+    {
+        int [] bucket = new int [ max - min + 1 ];
+        // 0  bucket[0]  10  1
+        // 1  bucket[1]  11  
+        // 2
+        for(int i=0;i<data.length;i++)
+        {
+            // data[i] = 5 
+            // bucket[5]++; // 有一个坐标5++
+            bucket[ data[i] ]++;// 计数
+        }
+        
+        // 展开
+        // 0  5
+        // 1  3
+        // 2  5
+        // 3  2
+        //00000 111 22222  3333
+        for(int i=0,j=0;i<max;i++)
+        {
+            while( bucket[i]-- > 0) // 根据次数
+            {
+                data[j]=i;
+                j++;
+            }
+        } 
+    }
+    
+    public static void main(String[] args) 
+    {
+        int [] data = new int [1000];
+        for(int i = 0;i < 1000;i++)
+        {
+            data[i] = (int)(Math.random() * 100);
+        }
+        
+        // 随机数组，重复数据很多
+        show(data);
+        bucketsort( data, 0, 99);
+        show(data);
+    }
+}
+
+
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
-##                    归并排序                   ##
+##                    4 堆排序                  ##
+######################################~..~########
+
+
+package heap_sort;
+
+public class Heap_sort 
+{
+    
+    public static void swap(int [] data, int i, int j)
+    {
+        int temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
+    }
+    
+    public static void show(int [] data)
+    {
+        for(int i:data)
+        {
+            System.out.print(i + " ");
+        }
+        System.out.println(" ");
+    }
+    
+    public static void getMax(int [] data)
+    {
+        for(int j=data.length-1; j>0; j--) // 从后面开始
+        {
+            int father = j / 2; // 取出父亲节点
+            int child = j; // 记录当前节点
+            if(j < data.length-1 && data[j]<data[j+1])
+            {
+                child += 1; // 记录节点，记录左右节点最大值
+            }
+            if(data[child] > data[father])
+            {
+                swap(data,child,father);
+            }
+        }
+    }
+    
+    public static void heapsort(int [] data)
+    {
+        for(int i=0; i< data.length;i++)
+        {
+            // 循环数组，每次取出最大值的
+            makeheap(data,data.length - 1 - i);
+            swap(data, 0, data.length - 1 -i); //登顶的数换到后面去
+            show(data);
+        }
+    }
+    
+    public static void makeheap(int [] data, int lastindex) // 堆排序 数据结构数组用数的逻辑来排序
+    {
+        // n 2n 2n+1 堆从1开始
+        // 1 2 3
+        //   1        //array index
+        // 2    3
+        for(int i= (lastindex - 1)/2; i>=0; i--)
+        {
+            int nowkey = i;// 记录当前判断的节点
+            while( 2*nowkey+1 <= lastindex ) // 小于最终节点循环下去
+            {
+                int bigindex = 2 * nowkey + 1;// 记录当前节点
+                if(bigindex < lastindex)
+                {
+                    if(data[bigindex] < data[bigindex + 1])
+                    {
+                        bigindex++; // 取出左右节点的最大
+                    }        
+                }
+                if(data[nowkey] < data[bigindex]) // 对比孩子节点最大值与父节点
+                {
+                    swap(data, nowkey, bigindex);// 交换
+                    nowkey = bigindex;// 取得最大值，记录
+                }
+                else
+                {
+                    break;
+                }  
+            }
+        }
+    }
+    
+    public static void main(String[] args) 
+    {
+        int [] data = new int[]{5,1,6,17,8,9,12,0,23,18,15};
+        show(data);
+        //getMax(data);
+        heapsort(data);
+        show(data);
+    }
+  
+}
+
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
+##                  3 归并排序                   ##
 ######################################~..~########
 
 package mergesort;
@@ -92,12 +250,10 @@ public class MergeSort
     }
 }
 
-
-
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
-##                    插入排序                   ##
+##                   2 插入排序                  ##
 ######################################~..~########
 package insersort;
 public class InserSort 
@@ -204,12 +360,10 @@ public class InserSort
     
 }
 
-
-
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
-##                    快速排序                   ##
+##                   1 快速排序                  ##
 ######################################~..~########
 package csdn_quicksort;
 
@@ -278,12 +432,7 @@ public class Csdn_QuickSort
         show(ints);
         
     }
-    
-    
-    
-    
-
-    
+   
 }
 /*
     public static void show(int [] inst)
