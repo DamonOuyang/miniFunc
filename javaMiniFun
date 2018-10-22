@@ -1,3 +1,102 @@
+
+#                      /\  /\      
+#                    ( @ . @ )     
+#################################^^^#########^^^##
+##                 6 shell排序                  ##
+######################################~..~########
+
+package shell_sort;
+
+// 在多线程的情况下使用的排序
+// 1  9  2  8  3  7  4  6  5
+// 
+
+
+//
+
+public class Shell_sort 
+{
+    public static void shellsort(int [] data)
+    {
+        // h = 3*h + 1;// 数据收敛
+        int h = 1;
+        while( h <= data.length/3)
+        {
+            h = 3*h+1;// 获得最佳收敛
+        }
+        while(h > 0)
+        {
+            for(int i=h;i<data.length; i+=h)// 按照步长前进
+            {
+
+                if(data[i] < data[i-h])// 调节当前系列
+                {
+                     int temp = data[i];// 保存当前的值
+                     int j = i - h;// 记录当前下标
+                     while(j >= 0 && data[j]>temp)
+                     {
+                         data[j+h] = data[j];
+                         j -= h;// 判断每个值大于temp
+                     }
+                    data[j+h] = temp;
+                }
+                show(data);
+            }
+            h =(h-1)/3;// 每一次收敛的值
+        }
+        
+    }
+
+        public static void shellsortX(int [] data)
+    {
+        // h = 3*h + 1;// 数据收敛
+        //int h = 1;
+        int h = data.length - 1;
+//        while( h <= data.length/3)
+//        {
+//            h = 3*h+1;// 获得最佳收敛
+//        }
+        while(h > 0)
+        {
+            for(int i=h;i<data.length; i+=h)// 按照步长前进
+            {
+
+                if(data[i] < data[i-h])// 调节当前系列
+                {
+                     int temp = data[i];// 保存当前的值
+                     int j = i - h;// 记录当前下标
+                     while(j >= 0 && data[j]>temp)
+                     {
+                         data[j+h] = data[j];
+                         j -= h;// 判断每个值大于temp
+                     }
+                    data[j+h] = temp;
+                }
+                show(data);
+            }
+            h--;// 每一次收敛的值
+        }
+        
+    }
+    
+    public static void show(int[] arr)
+    {
+        for(int i=0;i<arr.length;i++)
+        {
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println("");
+    }
+    public static void main(String[] args) 
+    {
+        int [] arr = new int[]{5,4,2,4,1,6,9,8,7};
+        show(arr);
+        shellsortX(arr);
+        show(arr);
+       
+    }
+}
+
 #                      /\  /\      
 #                    ( @ . @ )     
 #################################^^^#########^^^##
