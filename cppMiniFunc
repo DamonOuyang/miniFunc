@@ -1,5 +1,124 @@
 *****************************
 * CPP
+* 观察者模式
+*****************************
+#include <iostream>
+#include <list>
+#include <algorithm>
+
+using namespace std;
+
+class Observer // 观察者
+{
+public:
+    virtual void update(int hour, int min, int sec) = 0;
+};
+
+class Subject // 主演
+{
+public:
+    virtual void registerOberver( Observer * ob) = 0;
+    virtual void removeOberver( Observer * ob) = 0;
+    virtual void notify() = 0;
+protected:
+    list<Observer*> observerList; // 主演里面有一个观察者链表
+};
+
+class PekingTimeSubject:public Subject // 设置时间
+{
+public:
+    void setTimer(int hour, int min, int sec)
+    {
+        _hour = hour;
+        _min = min;
+        _sec = sec;
+        notify();
+    }
+    void registerOberver(Observer * ob)
+    {
+        observerList.push_back(ob);
+    }
+    void removeOberver(Observer * ob)
+    {
+        //observerList.erase(find(observerList.begin(), observerList.end(), ob));
+        observerList.remove(ob);
+    }
+    void notify()
+    {
+        list<Observer*>::iterator itr = observerList.begin();
+        for(; itr != observerList.end(); itr++)
+        {
+            (*itr)->update(_hour, _min,_sec);
+        }
+    }
+private:
+    int _hour;
+    int _min;
+    int _sec;
+};
+
+class AmericaTimerObserver:public Observer
+{
+  public:
+    void update(int hour, int min, int sec)
+    {
+        _hour = hour - 8;
+        _min = min;
+        _sec = sec;
+        dis();
+    }
+
+    void dis()
+    {
+        cout <<" America Time is update"<< endl;
+        cout <<"H:"<<_hour<<" M:"<<_min<<" S:"<<_sec << endl;
+    }
+private:
+    int _hour;
+    int _min;
+    int _sec;
+};
+
+class JapanTimerObserver:public Observer
+{
+  public:
+    void update(int hour, int min, int sec)
+    {
+        _hour = hour + 8;
+        _min = min;
+        _sec = sec;
+        dis();
+    }
+
+    void dis()
+    {
+        cout <<" Japan Time is update"<< endl;
+        cout <<"H:"<<_hour<<" M:"<<_min<<" S:"<<_sec << endl;
+    }
+private:
+    int _hour;
+    int _min;
+    int _sec;
+};
+
+
+int main()
+{
+    PekingTimeSubject * bj = new PekingTimeSubject;  // 主演
+    JapanTimerObserver * jp = new JapanTimerObserver; // 观察者
+    AmericaTimerObserver * am = new AmericaTimerObserver;// 观察者
+    bj->registerOberver(jp);
+    bj->registerOberver(am);
+    bj->setTimer(10, 20 , 30);
+    //bj->removeOberver(jp);
+    //bj->setTimer(1,2,3);
+    return 0;
+}
+
+
+
+*****************************
+* CPP
 * 右值引用
 *****************************
 int main() {
